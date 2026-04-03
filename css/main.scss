@@ -1,0 +1,798 @@
+// =====================
+//  VARIABLES
+// =====================
+$cream:        #d5cece;
+$dark:         #1a1a1a;
+$accent:       #c8956c;
+$accent-light: #f0e6dc;
+$muted:        #888;
+$border:       #e8e4df;
+
+$font-serif: 'Playfair Display', serif;
+$font-sans:  'DM Sans', sans-serif;
+
+$bp-tablet: 1024px;
+$bp-mobile: 600px;
+
+// =====================
+//  MIXINS
+// =====================
+@mixin section-padding {
+    padding: 100px 60px;
+
+    @media (max-width: $bp-tablet) { padding: 80px 30px; }
+}
+
+@mixin serif-heading($size: 2.8rem) {
+    font-family: $font-serif;
+    font-size: $size;
+    font-weight: 700;
+}
+
+@mixin label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: $accent;
+    margin-bottom: 20px;
+}
+
+@mixin card-hover {
+    transition: transform 0.3s, border-color 0.3s;
+    &:hover {
+        transform: translateY(-5px);
+        border-color: $accent;
+    }
+}
+
+@mixin tag-pill {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: $accent;
+    background: $accent-light;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+// =====================
+//  RESET
+// =====================
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: $font-sans;
+    background: $cream;
+    color: $dark;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+a { text-decoration: none; color: inherit; }
+
+// =====================
+//  NAVIGATION
+// =====================
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: rgba(245, 233, 216, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid $border;
+    padding: 18px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: $bp-tablet) { padding: 18px 30px; }
+}
+
+.nav {
+    &__logo {
+        display: flex;
+        align-items: center;
+        flex: 1;
+    }
+
+    &__links {
+        display: flex;
+        gap: 30px;
+        flex: 1;
+
+        a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: $muted;
+            transition: color 0.3s;
+
+            &:hover { color: $dark; }
+        }
+    }
+
+    &__hamburger {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: $dark;
+    }
+}
+
+@media (max-width: $bp-mobile) {
+    .nav__hamburger { display: block; }
+
+    .nav__links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 30px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        gap: 16px;
+
+        &.open { display: flex; }
+    }
+}
+
+// =====================
+//  BUTTONS
+// =====================
+.btn-primary {
+    background: $dark;
+    color: white;
+    padding: 14px 30px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: background 0.3s, transform 0.3s;
+
+    &:hover {
+        background: $accent;
+        transform: translateY(-2px);
+    }
+}
+
+.btn-secondary {
+    border: 1.5px solid $border;
+    color: $dark;
+    padding: 14px 30px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: border-color 0.3s, transform 0.3s;
+
+    &:hover {
+        border-color: $dark;
+        transform: translateY(-2px);
+    }
+}
+
+// =====================
+//  SECTION LABEL
+// =====================
+.section__label { @include label; }
+
+// =====================
+//  HERO
+// =====================
+.hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 60px 60px;
+    gap: 60px;
+
+    @media (max-width: $bp-tablet) {
+        padding: 100px 30px 60px;
+        grid-template-columns: 1fr;
+    }
+
+    &__text  { max-width: 540px; }
+
+    &__tag {
+        display: inline-block;
+        background: $accent-light;
+        color: $accent;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 6px 14px;
+        border-radius: 20px;
+        margin-bottom: 24px;
+        animation: fadeUp 0.6s ease forwards;
+    }
+
+    &__title {
+        @include serif-heading(4rem);
+        line-height: 1.15;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+        animation: fadeUp 0.6s 0.1s ease forwards;
+        opacity: 0;
+
+        em { font-style: italic; color: $accent; }
+
+        @media (max-width: $bp-mobile) { font-size: 2.5rem; }
+    }
+
+    &__sub {
+        font-size: 1.1rem;
+        color: $muted;
+        margin-bottom: 40px;
+        font-weight: 300;
+        max-width: 420px;
+        animation: fadeUp 0.6s 0.2s ease forwards;
+        opacity: 0;
+    }
+
+    &__ctas {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        animation: fadeUp 0.6s 0.3s ease forwards;
+        opacity: 0;
+    }
+
+    &__image {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__image-frame {
+        width: 420px;
+        height: 520px;
+        background: $accent-light;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid $accent;
+            border-radius: 8px;
+            z-index: -1;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__image-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: $font-serif;
+        font-size: 5rem;
+        color: $accent;
+    }
+}
+
+// =====================
+//  ABOUT
+// =====================
+.about {
+    @include section-padding;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    border-top: 1px solid $border;
+
+    @media (max-width: $bp-tablet) { grid-template-columns: 1fr; }
+
+    &__left h2 { @include serif-heading; line-height: 1.2; }
+
+    &__right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+
+        p {
+            color: #555;
+            font-size: 1.05rem;
+            font-weight: 300;
+        }
+    }
+
+    &__stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 20px;
+        padding-top: 30px;
+        border-top: 1px solid $border;
+
+        @media (max-width: $bp-mobile) { grid-template-columns: repeat(2, 1fr); }
+    }
+}
+
+.stat {
+    &__number {
+        font-family: $font-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: $accent;
+    }
+
+    &__label {
+        font-size: 0.85rem;
+        color: $muted;
+        font-weight: 300;
+    }
+}
+
+// =====================
+//  PROJECTS
+// =====================
+.projects {
+    @include section-padding;
+    background: white;
+    border-top: 1px solid $border;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 60px;
+
+        h2 { @include serif-heading; }
+
+        a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: $accent;
+            border-bottom: 1px solid $accent;
+            padding-bottom: 2px;
+        }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+
+        @media (max-width: $bp-tablet) { grid-template-columns: repeat(2, 1fr); }
+        @media (max-width: $bp-mobile) { grid-template-columns: 1fr; }
+    }
+}
+
+.project-card {
+    background: $cream;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid $border;
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+    }
+
+    &__image {
+        height: 200px;
+        background: $accent-light;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+    }
+
+    &__body  { padding: 24px; }
+
+    &__tag {
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: $accent;
+        margin-bottom: 10px;
+    }
+
+    &__title {
+        @include serif-heading(1.3rem);
+        margin-bottom: 10px;
+    }
+
+    &__desc {
+        font-size: 0.9rem;
+        color: $muted;
+        margin-bottom: 20px;
+        font-weight: 300;
+    }
+
+    &__learning {
+        font-size: 0.85rem;
+        color: $accent;
+        margin-top: 10px;
+        font-style: italic;
+        border-top: 1px solid $border;
+        padding-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    &__link {
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: $dark;
+        border-bottom: 1px solid $dark;
+        padding-bottom: 2px;
+        transition: color 0.3s, border-color 0.3s;
+
+        &:hover {
+            color: $accent;
+            border-color: $accent;
+        }
+    }
+}
+
+// =====================
+//  LEARNING JOURNEY
+// =====================
+.learning {
+    @include section-padding;
+    background: white;
+    border-top: 1px solid $border;
+
+    &__header {
+        margin-bottom: 60px;
+        h2 { @include serif-heading; }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+
+        @media (max-width: $bp-tablet) { grid-template-columns: repeat(2, 1fr); }
+        @media (max-width: $bp-mobile) { grid-template-columns: 1fr; }
+    }
+
+    &__card {
+        padding: 30px;
+        border: 1px solid $border;
+        border-radius: 8px;
+        @include card-hover;
+
+        h3 {
+            @include serif-heading(1.2rem);
+            margin-bottom: 12px;
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: $muted;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+    }
+
+    &__icon {
+        font-size: 2rem;
+        margin-bottom: 16px;
+    }
+
+    &__tag { @include tag-pill; }
+}
+
+// =====================
+//  SKILLS
+// =====================
+.skills {
+    @include section-padding;
+    border-top: 1px solid $border;
+
+    h2 {
+        @include serif-heading;
+        margin-bottom: 60px;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+
+        @media (max-width: $bp-tablet) { grid-template-columns: repeat(2, 1fr); }
+        @media (max-width: $bp-mobile) { grid-template-columns: 1fr; }
+    }
+}
+
+.skill-cat {
+    padding: 30px;
+    border: 1px solid $border;
+    border-radius: 8px;
+    @include card-hover;
+
+    &__icon {
+        font-size: 2rem;
+        margin-bottom: 16px;
+    }
+
+    &__title {
+        @include serif-heading(1.1rem);
+        margin-bottom: 14px;
+    }
+
+    &__list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        li {
+            font-size: 0.9rem;
+            color: $muted;
+            font-weight: 300;
+            padding-left: 12px;
+            border-left: 2px solid $accent-light;
+        }
+    }
+}
+
+// =====================
+//  QUOTE
+// =====================
+.quote {
+    @include section-padding;
+    background: $dark;
+    text-align: center;
+
+    &__text {
+        font-family: $font-serif;
+        font-size: 2.2rem;
+        font-style: italic;
+        color: white;
+        max-width: 800px;
+        margin: 0 auto 30px;
+        line-height: 1.4;
+
+        @media (max-width: $bp-mobile) { font-size: 1.5rem; }
+    }
+
+    &__author {
+        font-size: 0.85rem;
+        color: $accent;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+}
+
+// =====================
+//  BEYOND SCHOOL
+// =====================
+.beyond {
+    @include section-padding;
+    background: $cream;
+    border-top: 1px solid $border;
+
+    &__header {
+        margin-bottom: 60px;
+        h2 { @include serif-heading; }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+
+        @media (max-width: $bp-tablet) { grid-template-columns: repeat(2, 1fr); }
+        @media (max-width: $bp-mobile) { grid-template-columns: 1fr; }
+    }
+
+    &__card {
+        padding: 32px;
+        border: 1px solid $border;
+        border-radius: 8px;
+        background: white;
+        @include card-hover;
+
+        h3 {
+            @include serif-heading(1.2rem);
+            margin-bottom: 12px;
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: $muted;
+            font-weight: 300;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+    }
+
+    &__card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+
+    &__icon  { font-size: 2rem; }
+
+    &__badge {
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: $accent;
+        background: $accent-light;
+        padding: 4px 10px;
+        border-radius: 20px;
+    }
+
+    &__tag { @include tag-pill; }
+}
+
+// =====================
+//  CONTACT
+// =====================
+.contact {
+    @include section-padding;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    border-top: 1px solid $border;
+
+    @media (max-width: $bp-tablet) { grid-template-columns: 1fr; }
+
+    &__left {
+        h2 {
+            @include serif-heading;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: $muted;
+            font-size: 1rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        a {
+            font-size: 0.9rem;
+            color: $dark;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s;
+
+            &:hover { color: $accent; }
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        input, textarea {
+            background: white;
+            border: 1.5px solid $border;
+            border-radius: 4px;
+            padding: 14px 18px;
+            font-family: $font-sans;
+            font-size: 0.95rem;
+            color: $dark;
+            outline: none;
+            transition: border-color 0.3s;
+
+            &:focus { border-color: $accent; }
+        }
+
+        textarea {
+            height: 140px;
+            resize: vertical;
+        }
+
+        button {
+            background: $dark;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 4px;
+            font-family: $font-sans;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+
+            &:hover { background: $accent; }
+        }
+    }
+}
+
+// =====================
+//  FOOTER
+// =====================
+footer {
+    background: $dark;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #333;
+
+    @media (max-width: $bp-tablet) {
+        padding: 30px;
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
+
+.footer {
+    &__logo {
+        display: flex;
+        align-items: center;
+        flex: 1;
+    }
+
+    &__links {
+        display: flex;
+        gap: 30px;
+        list-style: none;
+        padding: 0;
+
+        a {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            flex: 1;
+
+            &:hover { color: $accent; }
+        }
+    }
+
+    &__copy { font-size: 0.8rem; }
+}
+
+// =====================
+//  ANIMATIONS
+// =====================
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

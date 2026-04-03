@@ -14,7 +14,7 @@
 <meta property="og:title" content="Rugema Epiphane | Portfolio">
 <meta property="og:description" content="Digital Technologies student at Epitech Paris. Passionate about data science and machine learning.">
 <meta property="og:type" content="website">
-<meta property="og:url" content=" https://congenial-adventure-j1mg8e8.pages.github.io/">
+<meta property="og:url" content="https://rugematotti-oss.github.io/rugema-s-portfolio/">
 <meta property="og:image" content="assets/projects_image/IMG-20230522-WA0010.jpg">
 
 <!-- Twitter Card -->
@@ -24,7 +24,7 @@
 <meta name="twitter:image" content="assets/projects_image/IMG-20230522-WA0010.jpg">
 
 <!-- Canonical URL -->
-<link rel="canonical" href=" https://congenial-adventure-j1mg8e8.pages.github.io/">
+<link rel="canonical" href="https://rugematotti-oss.github.io/rugema-s-portfolio/">
 
 <title>Rugema Epiphane | Data & Digital Technologies Student</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -332,7 +332,795 @@
         <p class="footer__copy">© 2026 Rugema E. All rights reserved.</p>
     </footer>
 
+<script>
+  const hamburger = document.querySelector('.nav__hamburger');
+  const navLinks  = document.querySelector('.nav__links');
 
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    hamburger.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.textContent = '☰';
+    });
+  });
+</script>
     
+
+
+
+<style>
+/* ── Chatbot variables (inherits your site palette) ── */
+:root {
+  --cb-accent:    #c8956c;
+  --cb-accent-lt: #f0e6dc;
+  --cb-dark:      #1a1a1a;
+  --cb-border:    #e8e4df;
+  --cb-bg:        #faf8f5;
+  --cb-muted:     #888;
+  --cb-radius:    14px;
+  --cb-shadow:    0 20px 60px rgba(0,0,0,0.14);
+}
+ 
+/* ── Floating button ── */
+#cb-toggle {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--cb-dark);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--cb-shadow);
+  z-index: 9998;
+  transition: transform 0.3s, background 0.3s;
+}
+#cb-toggle:hover { background: var(--cb-accent); transform: scale(1.08); }
+#cb-toggle svg   { width: 26px; height: 26px; fill: white; transition: opacity 0.2s; }
+#cb-toggle .cb-close { display: none; }
+ 
+#cb-toggle.open .cb-chat  { display: none; }
+#cb-toggle.open .cb-close { display: block; }
+#cb-toggle.open { background: var(--cb-accent); }
+ 
+/* Notification dot */
+#cb-notif {
+  position: fixed;
+  bottom: 74px;
+  right: 28px;
+  background: #e55;
+  color: white;
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 3px 7px;
+  z-index: 9999;
+  display: none;
+}
+ 
+/* ── Chat window ── */
+#cb-window {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  width: 370px;
+  max-width: calc(100vw - 40px);
+  height: 540px;
+  max-height: calc(100vh - 120px);
+  background: var(--cb-bg);
+  border: 1px solid var(--cb-border);
+  border-radius: var(--cb-radius);
+  box-shadow: var(--cb-shadow);
+  display: flex;
+  flex-direction: column;
+  z-index: 9997;
+  overflow: hidden;
+  transform: scale(0.9) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), opacity 0.25s ease;
+}
+#cb-window.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+ 
+/* ── Header ── */
+.cb-header {
+  background: var(--cb-dark);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.cb-avatar-wrap {
+  position: relative;
+}
+.cb-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--cb-accent-lt);
+  border: 2px solid var(--cb-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  color: var(--cb-accent);
+  font-size: 1rem;
+  overflow: hidden;
+  object-fit: cover;
+}
+.cb-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.cb-online {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 10px;
+  height: 10px;
+  background: #4ade80;
+  border-radius: 50%;
+  border: 2px solid var(--cb-dark);
+  animation: cb-pulse 2s infinite;
+}
+@keyframes cb-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+  50%      { box-shadow: 0 0 0 5px rgba(74,222,128,0); }
+}
+.cb-header-info { flex: 1; }
+.cb-header-name {
+  font-family: "Playfair Display", serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+.cb-header-sub {
+  font-size: 0.72rem;
+  color: var(--cb-accent);
+  letter-spacing: 0.5px;
+  margin-top: 1px;
+}
+.cb-admin-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.5);
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.cb-admin-btn:hover { color: var(--cb-accent); border-color: var(--cb-accent); }
+ 
+/* ── Messages ── */
+.cb-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+.cb-messages::-webkit-scrollbar { width: 4px; }
+.cb-messages::-webkit-scrollbar-thumb { background: var(--cb-border); border-radius: 2px; }
+ 
+.cb-msg {
+  display: flex;
+  gap: 8px;
+  animation: cb-fadeup 0.28s ease forwards;
+  opacity: 0;
+}
+.cb-msg.user { flex-direction: row-reverse; }
+ 
+@keyframes cb-fadeup {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+ 
+.cb-msg-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--cb-accent-lt);
+  border: 1.5px solid var(--cb-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  color: var(--cb-accent);
+  overflow: hidden;
+  align-self: flex-end;
+}
+.cb-msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
+ 
+.cb-bubble {
+  max-width: 78%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--cb-dark);
+}
+.cb-msg.bot .cb-bubble {
+  background: white;
+  border: 1px solid var(--cb-border);
+  border-bottom-left-radius: 4px;
+}
+.cb-msg.user .cb-bubble {
+  background: var(--cb-dark);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+.cb-bubble strong { color: var(--cb-accent); font-weight: 600; }
+.cb-msg.user .cb-bubble strong { color: var(--cb-accent-lt); }
+.cb-bubble a { color: var(--cb-accent); text-decoration: underline; }
+.cb-bubble ul { padding-left: 16px; margin-top: 4px; }
+.cb-bubble li { margin-bottom: 3px; }
+ 
+/* Typing indicator */
+.cb-typing { display: flex; gap: 5px; padding: 12px 14px; }
+.cb-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cb-accent);
+  animation: cb-bounce 1.1s ease-in-out infinite;
+}
+.cb-dot:nth-child(2) { animation-delay: 0.18s; }
+.cb-dot:nth-child(3) { animation-delay: 0.36s; }
+@keyframes cb-bounce {
+  0%,80%,100% { transform: translateY(0); opacity: 0.4; }
+  40%          { transform: translateY(-6px); opacity: 1; }
+}
+ 
+/* ── Suggestions chips ── */
+.cb-chips {
+  padding: 8px 16px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  border-top: 1px solid var(--cb-border);
+}
+.cb-chip {
+  font-size: 0.72rem;
+  padding: 5px 12px;
+  border: 1px solid var(--cb-border);
+  border-radius: 20px;
+  background: white;
+  color: var(--cb-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.cb-chip:hover { border-color: var(--cb-accent); color: var(--cb-accent); }
+ 
+/* ── Input bar ── */
+.cb-inputbar {
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--cb-border);
+  background: white;
+  flex-shrink: 0;
+}
+.cb-inputbar textarea {
+  flex: 1;
+  border: 1.5px solid var(--cb-border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.88rem;
+  color: var(--cb-dark);
+  resize: none;
+  height: 38px;
+  max-height: 100px;
+  outline: none;
+  background: var(--cb-bg);
+  transition: border-color 0.2s;
+}
+.cb-inputbar textarea:focus { border-color: var(--cb-accent); }
+.cb-inputbar textarea::placeholder { color: var(--cb-muted); }
+.cb-send {
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  background: var(--cb-dark);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+.cb-send:hover { background: var(--cb-accent); transform: scale(1.05); }
+.cb-send:disabled { background: var(--cb-border); cursor: not-allowed; transform: none; }
+.cb-send svg { width: 16px; height: 16px; fill: white; }
+ 
+/* ── Admin panel ── */
+#cb-admin-panel {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  width: 370px;
+  max-width: calc(100vw - 40px);
+  max-height: 500px;
+  background: var(--cb-bg);
+  border: 1px solid var(--cb-border);
+  border-radius: var(--cb-radius);
+  box-shadow: var(--cb-shadow);
+  z-index: 9996;
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+}
+#cb-admin-panel.open { display: flex; }
+ 
+.cb-admin-head {
+  background: var(--cb-dark);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cb-admin-title {
+  font-family: "Playfair Display", serif;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.cb-admin-sub { color: var(--cb-accent); font-size: 0.72rem; margin-top: 2px; }
+.cb-admin-close {
+  background: rgba(255,255,255,0.1); border: none; color: white;
+  border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;
+}
+.cb-admin-close:hover { color: #e55; }
+ 
+.cb-admin-body { overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.cb-admin-body::-webkit-scrollbar { width: 4px; }
+.cb-admin-body::-webkit-scrollbar-thumb { background: var(--cb-border); border-radius: 2px; }
+ 
+.cb-unknown-item {
+  background: white;
+  border: 1px solid var(--cb-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.cb-unknown-q {
+  font-size: 0.85rem;
+  color: var(--cb-dark);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.cb-unknown-meta {
+  font-size: 0.7rem;
+  color: var(--cb-muted);
+  margin-bottom: 8px;
+}
+.cb-answer-row { display: flex; gap: 6px; }
+.cb-answer-row input {
+  flex: 1;
+  border: 1.5px solid var(--cb-border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.82rem;
+  color: var(--cb-dark);
+  outline: none;
+  background: var(--cb-bg);
+}
+.cb-answer-row input:focus { border-color: var(--cb-accent); }
+.cb-teach-btn {
+  padding: 7px 12px;
+  background: var(--cb-dark);
+  border: none; border-radius: 6px;
+  color: white; font-size: 0.75rem;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer; transition: background 0.2s;
+  white-space: nowrap;
+}
+.cb-teach-btn:hover { background: var(--cb-accent); }
+.cb-taught-note { font-size: 0.72rem; color: #4ade80; margin-top: 6px; }
+.cb-empty { text-align: center; color: var(--cb-muted); font-size: 0.85rem; padding: 30px 0; }
+.cb-clear-btn {
+  margin: 0 14px 14px;
+  background: none; border: 1px solid #fca5a5;
+  color: #ef4444; border-radius: 6px;
+  padding: 8px; font-size: 0.78rem;
+  cursor: pointer; font-family: "DM Sans", sans-serif;
+  transition: background 0.2s;
+}
+.cb-clear-btn:hover { background: #fef2f2; }
+</style>
+ 
+<!-- Floating toggle button -->
+<button id="cb-toggle" aria-label="Open chat" onclick="cbToggle()">
+  <!-- Chat icon -->
+  <svg class="cb-chat" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+  <!-- Close icon -->
+  <svg class="cb-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+</button>
+<div id="cb-notif">1</div>
+ 
+<!-- Chat window -->
+<div id="cb-window">
+  <div class="cb-header">
+    <div class="cb-avatar-wrap">
+      <div class="cb-avatar">
+        <img src="assets/projects_image/IMG-20230522-WA0010.jpg"
+             alt="Rugema"
+             onerror="this.style.display='none'; this.parentNode.innerHTML='R';">
+      </div>
+      <div class="cb-online"></div>
+    </div>
+    <div class="cb-header-info">
+      <div class="cb-header-name">Rugema Epiphane</div>
+      <div class="cb-header-sub">Ask me anything ✦ Usually replies instantly</div>
+    </div>
+    <button class="cb-admin-btn" onclick="cbAdminToggle()">⚙ Admin</button>
+  </div>
+ 
+  <div class="cb-messages" id="cb-messages"></div>
+ 
+  <div class="cb-chips" id="cb-chips">
+    <div class="cb-chip" onclick="cbSendChip(this)">Who are you?</div>
+    <div class="cb-chip" onclick="cbSendChip(this)">Your projects</div>
+    <div class="cb-chip" onclick="cbSendChip(this)">Skills</div>
+    <div class="cb-chip" onclick="cbSendChip(this)">Internship?</div>
+    <div class="cb-chip" onclick="cbSendChip(this)">Contact</div>
+  </div>
+ 
+  <div class="cb-inputbar">
+    <textarea id="cb-input" placeholder="Ask something…"
+      onkeydown="cbKey(event)" oninput="cbResize(this)"></textarea>
+    <button class="cb-send" id="cb-send-btn" onclick="cbSend()">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+ 
+<!-- Admin panel -->
+<div id="cb-admin-panel">
+  <div class="cb-admin-head">
+    <div>
+      <div class="cb-admin-title">🧠 Self-Learning Panel</div>
+      <div class="cb-admin-sub">Teach the bot answers to unknown questions</div>
+    </div>
+    <button class="cb-admin-close" onclick="cbAdminToggle()">✕</button>
+  </div>
+  <div class="cb-admin-body" id="cb-admin-body"></div>
+  <button class="cb-clear-btn" onclick="cbClearAnswered()">Clear answered questions</button>
+</div>
+ 
+<script>
+// ════════════════════════════════════════════════════════
+//  RUGEMA'S PERSONAL KNOWLEDGE BASE
+//  Update this object to keep your bot up to date!
+// ════════════════════════════════════════════════════════
+const CB_SYSTEM = `
+You are a friendly, helpful personal assistant chatbot embedded on Rugema Epiphane's portfolio website.
+You speak warmly and professionally on his behalf. Use "Rugema" or "he/his" when referring to the portfolio owner.
+Answer questions based ONLY on the information below. Keep answers short and conversational (2–4 sentences max unless listing things).
+Use **bold** for names, skills, and key terms. Use bullet lists only when listing multiple items.
+If you genuinely don't have the answer, say honestly: "I don't have that info yet, but I've noted your question!"
+ 
+═══════════════════════════════
+  PERSONAL INFO
+═══════════════════════════════
+Full name: Rugema Nyiringabo Epiphane
+Date of birth: 06/06/2002
+Role: Digital Technologies Student
+School: Epitech Paris (Promo 2028, studies ongoing until 2028)
+Started: 2026
+Email: rugema@gmail.com
+GitHub: https://github.com/rugematotti-oss
+LinkedIn: https://www.linkedin.com/in/rugema-epiphane-8a87ba262
+Portfolio URL: https://rugematotti-oss.github.io/rugema-s-portfolio/
+CV: Available for download at cv/my cv.pdf on the site
+Availability: Currently looking for internship opportunities (👋 Available for internships)
+ 
+Bio:
+Rugema is a Digital Technologies student at Epitech Paris who loves working with data — from cleaning and analysing datasets to building machine learning models that solve real business problems. His projects span exploratory data analysis, NLP, full-stack development, and collaborative team projects using Git and Agile methods. He's constantly learning and improving.
+ 
+═══════════════════════════════
+  STATS
+═══════════════════════════════
+- 5+ projects completed
+- 3+ programming languages
+- Studies ongoing until 2028
+ 
+═══════════════════════════════
+  PROJECTS
+═══════════════════════════════
+ 
+1. NextBuy Analytics (Data Analysis)
+   Description: Exploratory data analysis on a grocery orders dataset. Includes reorder analysis, co-purchase pair detection and customer insights.
+   What he learned: Data cleaning, pandas groupby, matplotlib visualizations, extracting business insights from raw data.
+   Link: https://github.com/rugematotti-oss/digital_tech-progress/tree/af4df9e7237bcade00102684a8de5df928f4d728/my_nextbuy
+ 
+2. Tardis Project (Machine Learning)
+   Description: ML project on the Tardis dataset using models, feature engineering and data cleaning to predict and analyse train transportation in France.
+   What he learned: Feature engineering, model selection, train/test splitting, evaluating ML model performance with metrics like ROC-AUC.
+   Link: https://github.com/rugematotti-oss/digital_tech-progress/tree/af4df9e7237bcade00102684a8de5df928f4d728/tardis%20project
+ 
+3. Hack & Juice (Security / Ethical Hacking)
+   Description: A cybersecurity project describing tools and techniques used to ethically hack and extract information from a given target (website).
+   What he learned: Web security concepts, penetration testing tools, ethical hacking techniques.
+   Link: https://github.com/EpitechBachelorPromo2028/B-SEC-100-PAR-1-1-hack_juice-46.git
+ 
+═══════════════════════════════
+  LEARNING JOURNEY
+═══════════════════════════════
+Semester 1: Python basics, data manipulation with Pandas, dataset cleaning, Matplotlib visualizations.
+Semester 2: Machine learning with Scikit-learn, first predictive models, ROC-AUC evaluation metrics.
+Team Projects: Git and GitHub collaboration, branch management, merge conflict resolution, Agile methodology.
+Web Development: HTML, CSS, Bootstrap, responsive design, clean user interfaces.
+ 
+═══════════════════════════════
+  SKILLS
+═══════════════════════════════
+Programming: Python, JavaScript, HTML/CSS, SQL
+Data Science: Pandas, NumPy, Matplotlib, Plotly, Scikit-learn, Jupyter Notebook
+Machine Learning: Supervised Learning, NLP & Text Analysis, Topic Modeling, Model Evaluation
+Tools: Git & GitHub, VS Code, Bootstrap, Linux/Bash
+ 
+═══════════════════════════════
+  CONTACT & LINKS
+═══════════════════════════════
+Email: rugema@gmail.com
+GitHub: https://github.com/rugematotti-oss
+LinkedIn: https://www.linkedin.com/in/rugema-epiphane-8a87ba262
+CV Download: Available on the portfolio site
+Contact form: Available in the Contact section of the portfolio
+ 
+═══════════════════════════════
+  QUOTE HE LIKES
+═══════════════════════════════
+"The pace of progress in AI is incredibly fast." — Elon Musk
+`;
+ 
+// ════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════
+let cbHistory   = [];
+let cbLoading   = false;
+let cbOpen      = false;
+let cbAdminOpen = false;
+ 
+const cbUnknown  = () => JSON.parse(localStorage.getItem('re_unknown') || '[]');
+const cbTaught   = () => JSON.parse(localStorage.getItem('re_taught')  || '{}');
+const cbSaveUnk  = d  => localStorage.setItem('re_unknown', JSON.stringify(d));
+const cbSaveTaut = d  => localStorage.setItem('re_taught',  JSON.stringify(d));
+ 
+// ════════════════════════════════════════════════════════
+//  TOGGLE
+// ════════════════════════════════════════════════════════
+function cbToggle() {
+  cbOpen = !cbOpen;
+  document.getElementById('cb-window').classList.toggle('open', cbOpen);
+  document.getElementById('cb-toggle').classList.toggle('open', cbOpen);
+  document.getElementById('cb-notif').style.display = 'none';
+  if (cbOpen && document.getElementById('cb-messages').children.length === 0) {
+    cbBotMsg("👋 Hi! I'm Rugema's assistant. Ask me about his **projects**, **skills**, **background**, or anything you'd like to know about him!");
+  }
+}
+ 
+function cbAdminToggle() {
+  cbAdminOpen = !cbAdminOpen;
+  const panel = document.getElementById('cb-admin-panel');
+  panel.classList.toggle('open', cbAdminOpen);
+  if (cbAdminOpen) cbRenderAdmin();
+}
+ 
+// ════════════════════════════════════════════════════════
+//  SEND
+// ════════════════════════════════════════════════════════
+async function cbSend(text) {
+  const input = document.getElementById('cb-input');
+  const msg = (text || input.value).trim();
+  if (!msg || cbLoading) return;
+  input.value = '';
+  cbResize(input);
+  cbUserMsg(msg);
+  cbSetLoading(true);
+ 
+  // Check taught answers first
+  const taught = cbTaught();
+  const tKey = Object.keys(taught).find(k =>
+    msg.toLowerCase().includes(k.toLowerCase().substring(0,25)) ||
+    k.toLowerCase().includes(msg.toLowerCase().substring(0,25))
+  );
+  if (tKey) {
+    setTimeout(() => { cbBotMsg('📌 ' + taught[tKey]); cbSetLoading(false); }, 350);
+    return;
+  }
+ 
+  cbHistory.push({ role: 'user', content: msg });
+ 
+  try {
+   const res = await fetch('http://localhost:5000/chat', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    model: "google/gemma-3-1b",
+    max_tokens: 300,
+    messages: [
+      { role: "system", content: CB_SYSTEM },
+      ...cbHistory
+    ]
+  })
+});
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const reply = data.choices?.[0]?.message?.content || "I'm not sure about that!";
+ 
+    // Flag as unknown if bot says it doesn't know
+    const unsure = /don't have that info|i don't know|not sure|cannot find|no information/i.test(reply);
+    if (unsure) cbLogUnknown(msg);
+ 
+    cbHistory.push({ role: 'assistant', content: reply });
+    cbBotMsg(reply);
+  } catch(e) {
+    cbBotMsg("⚠️ Couldn't reach the AI right now. Try again in a moment!");
+    cbLogUnknown(msg);
+  }
+  cbSetLoading(false);
+}
+ 
+function cbSendChip(el) { cbSend(el.textContent); }
+function cbKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); cbSend(); } }
+ 
+// ════════════════════════════════════════════════════════
+//  UI HELPERS
+// ════════════════════════════════════════════════════════
+function cbUserMsg(text) {
+  const msgs = document.getElementById('cb-messages');
+  const d = document.createElement('div');
+  d.className = 'cb-msg user';
+  d.innerHTML = `<div class="cb-bubble">${cbEsc(text)}</div>
+    <div class="cb-msg-avatar">Me</div>`;
+  msgs.appendChild(d);
+  cbScroll();
+}
+ 
+function cbBotMsg(text) {
+  const msgs = document.getElementById('cb-messages');
+  const typing = document.getElementById('cb-typing');
+  if (typing) typing.remove();
+  const d = document.createElement('div');
+  d.className = 'cb-msg bot';
+  d.innerHTML = `
+    <div class="cb-msg-avatar">
+      <img src="assets/projects_image/IMG-20230522-WA0010.jpg" alt="R"
+        onerror="this.style.display='none'; this.parentNode.innerHTML='R';">
+    </div>
+    <div class="cb-bubble">${cbFmt(text)}</div>`;
+  msgs.appendChild(d);
+  cbScroll();
+}
+ 
+function cbSetLoading(on) {
+  cbLoading = on;
+  document.getElementById('cb-send-btn').disabled = on;
+  const msgs = document.getElementById('cb-messages');
+  if (on) {
+    const t = document.createElement('div');
+    t.id = 'cb-typing'; t.className = 'cb-msg bot';
+    t.innerHTML = `<div class="cb-msg-avatar">R</div>
+      <div class="cb-bubble"><div class="cb-typing">
+        <div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div>
+      </div></div>`;
+    msgs.appendChild(t); cbScroll();
+  } else {
+    const t = document.getElementById('cb-typing');
+    if (t) t.remove();
+  }
+}
+ 
+function cbScroll() {
+  const m = document.getElementById('cb-messages');
+  m.scrollTop = m.scrollHeight;
+}
+ 
+function cbResize(el) {
+  el.style.height = '38px';
+  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+}
+ 
+function cbFmt(t) {
+  return t
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g,     '<em>$1</em>')
+    .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n- /g, '<br>• ')
+    .replace(/\n/g, '<br>');
+}
+ 
+function cbEsc(t) {
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+ 
+// ════════════════════════════════════════════════════════
+//  SELF-LEARNING
+// ════════════════════════════════════════════════════════
+function cbLogUnknown(q) {
+  const list = cbUnknown();
+  if (!list.find(x => x.q === q)) {
+    list.push({ id: Date.now(), q, ts: new Date().toISOString(), done: false });
+    cbSaveUnk(list);
+    // Show notif badge
+    const notif = document.getElementById('cb-notif');
+    if (!cbOpen) { notif.style.display = 'block'; }
+  }
+}
+ 
+function cbRenderAdmin() {
+  const body = document.getElementById('cb-admin-body');
+  const list = cbUnknown().filter(x => !x.done);
+  if (!list.length) {
+    body.innerHTML = '<div class="cb-empty">🎉 All questions answered!<br>The bot is fully up to date.</div>';
+    return;
+  }
+  body.innerHTML = list.map(x => `
+    <div class="cb-unknown-item" id="unk-${x.id}">
+      <div class="cb-unknown-q">❓ ${cbEsc(x.q)}</div>
+      <div class="cb-unknown-meta">${new Date(x.ts).toLocaleDateString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
+      <div class="cb-answer-row">
+        <input type="text" id="a-${x.id}" placeholder="Type an answer to teach…">
+        <button class="cb-teach-btn" onclick="cbTeach(${x.id},'${cbEsc(x.q).replace(/'/g,"\\'")}')">Save</button>
+      </div>
+    </div>`).join('');
+}
+ 
+function cbTeach(id, q) {
+  const val = document.getElementById(`a-${id}`)?.value?.trim();
+  if (!val) return;
+  // Save taught answer
+  const taught = cbTaught();
+  taught[q] = val;
+  cbSaveTaut(taught);
+  // Mark done
+  const list = cbUnknown().map(x => x.id === id ? {...x, done: true} : x);
+  cbSaveUnk(list);
+  // Update UI
+  const el = document.getElementById(`unk-${id}`);
+  if (el) {
+    el.style.borderColor = '#4ade80';
+    el.innerHTML = `<div class="cb-unknown-q">✅ ${cbEsc(q)}</div>
+      <div class="cb-taught-note">✓ Saved: "${cbEsc(val)}"</div>`;
+  }
+}
+ 
+function cbClearAnswered() {
+  const list = cbUnknown().filter(x => !x.done);
+  cbSaveUnk(list);
+  cbRenderAdmin();
+}
+ 
+// Show notif on first load if there are unread unknown questions
+window.addEventListener('DOMContentLoaded', () => {
+  const pending = cbUnknown().filter(x => !x.done);
+  if (pending.length) document.getElementById('cb-notif').style.display = 'block';
+});
+</script>
+
+
+
 </body>
 </html>
