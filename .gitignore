@@ -1,0 +1,34 @@
+# SECRETS
+.env
+.env.local
+.env.production
+*.key
+*.pem
+
+# PYTHON
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# NODE / SASS
+node_modules/
+npm-debug.log*
+
+# CSS SOURCE MAPS
+*.css.map
+*.scss.map
+
+# OS FILES
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# EDITOR
+.vscode/
+.idea/
+*.swp
+
+# LOGS
+*.log
+logs/
