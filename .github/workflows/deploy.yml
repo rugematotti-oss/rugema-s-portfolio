@@ -16,7 +16,9 @@ jobs:
 
       - name: Inject Groq API key
         run: |
-          sed -i "s|%%GROQ_API_KEY%%|${{ secrets.GROQ_API_KEY }}|g" index.html
+          sed -i "s|%GROQ_API_KEY%|${{ secrets.GROQ_API_KEY }}|g" index.html
+          echo "Key injection done"
+          grep -c "%GROQ_API_KEY%" index.html && echo "WARNING: placeholder still present" || echo "OK: placeholder replaced"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
