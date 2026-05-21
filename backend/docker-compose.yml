@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  chatbot-server:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env          # reads your GROQ_API_KEY — never hardcode it
+    restart: unless-stopped
