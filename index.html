@@ -970,12 +970,8 @@ async function cbSend(text) {
   cbHistory.push({ role: 'user', content: msg });
  
   try {
-  const isLocal = window.location.hostname === 'localhost' || 
-                  window.location.hostname === '127.0.0.1';
 
-  let res;
-  if (isLocal) {
-    res = await fetch('https://rugema-s-portfolio.onrender.com/chat', {
+    const res = await fetch('https://rugema-s-portfolio.onrender.com/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -984,20 +980,7 @@ async function cbSend(text) {
         messages: [{ role: 'system', content: CB_SYSTEM }, ...cbHistory]
       })
     });
-  } else {
-    res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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'
-      },
-      body: JSON.stringify({
-        model: 'llama-3.1-8b-instant',
-        max_tokens: 300,
-        messages: [{ role: 'system', content: CB_SYSTEM }, ...cbHistory]
-      })
-    });
-  }
+    
     const data = await res.json();
     console.log('Groq response:', data);
     if (data.error) throw new Error(data.error.message);
