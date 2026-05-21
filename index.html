@@ -975,7 +975,7 @@ async function cbSend(text) {
 
   let res;
   if (isLocal) {
-    res = await fetch('http://localhost:5000/chat', {
+    res = await fetch('https://rugema-s-portfolio.onrender.com/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
