@@ -534,8 +534,15 @@ nav {
   border-color: #c8956c;
 }
 .skill-cat__icon {
-  font-size: 2rem;
-  margin-bottom: 16px;
+  height: 220px;
+  width: 200px;
+  background: #f0e6dc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 .skill-cat__title {
   font-family: "Playfair Display", serif;
